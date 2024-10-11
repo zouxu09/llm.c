@@ -25,7 +25,8 @@ import multiprocessing as mp
 
 import numpy as np
 import tiktoken
-from datasets import load_dataset
+# from datasets import load_dataset
+from modelscope.msdatasets import MsDataset
 from tqdm import tqdm
 
 from transformers import AutoTokenizer
@@ -58,7 +59,8 @@ os.makedirs(DATA_CACHE_DIR, exist_ok=True)
 
 # download the dataset
 if args.type == "classic":
-    fw = load_dataset("HuggingFaceFW/fineweb", name=remote_name, split="train")
+    # fw = load_dataset("HuggingFaceFW/fineweb", name=remote_name, split="train")
+    fw =  MsDataset.load('swift/fineweb', subset_name=remote_name, split='train')
     name = "fineweb"
 elif args.type =="edu":
     fw = load_dataset("HuggingFaceFW/fineweb-edu", name=remote_name, split="train")
